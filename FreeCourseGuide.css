@@ -1,0 +1,65 @@
+/* FreeCourseGuide.css */
+
+.free-course-container {
+  background: #f9f9f9;
+  padding: 3rem 1rem;
+  font-family: 'Mulish', sans-serif;
+  text-align: center;
+}
+
+.free-course-container h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.free-course-container p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.free-course-form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.free-course-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.free-course-form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.free-course-form button {
+  background: #007BFF;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.free-course-form button:hover {
+  background: #0056b3;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+}
