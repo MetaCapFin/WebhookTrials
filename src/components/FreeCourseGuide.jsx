@@ -17,13 +17,13 @@ const FreeCourseGuide = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
-  const isFormValid = Object.values(formData).every(value =>
+  const isFormValid = Object.values(formData).every((value) =>
     typeof value === 'boolean' ? value : value.trim() !== ''
   );
 
@@ -31,13 +31,23 @@ const FreeCourseGuide = () => {
     e.preventDefault();
     if (!isFormValid) return;
 
-    await fetch('https://hook.us2.make.com/mkmbcvitg1dlpbkr8akdio3gb6qs2ayh', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch(
+        'https://hook.us2.make.com/mkmbcvitg1dlpbkr8akdio3gb6qs2ayh',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        }
+      );
 
-    setSubmitted(true);
+      if (!response.ok) throw new Error('Webhook failed');
+
+      setSubmitted(true);
+    } catch (error) {
+      alert('Submission failed. Please try again later.');
+      console.error('Webhook error:', error);
+    }
   };
 
   return (
@@ -47,12 +57,43 @@ const FreeCourseGuide = () => {
         <p className={styles.thankYou}>Thanks! We'll be in touch soon.</p>
       ) : (
         <form onSubmit={handleSubmit}>
-          <input name="company" placeholder="Company" onChange={handleChange} />
-          <input name="firstName" placeholder="First Name" onChange={handleChange} />
-          <input name="lastName" placeholder="Last Name" onChange={handleChange} />
-          <input name="role" placeholder="Role/Title" onChange={handleChange} />
-          <input name="email" type="email" placeholder="Email" onChange={handleChange} />
-          <input name="phone" placeholder="Phone Number" onChange={handleChange} />
+          <input
+            name="company"
+            placeholder="Company"
+            value={formData.company}
+            onChange={handleChange}
+          />
+          <input
+            name="firstName"
+            placeholder="First Name"
+            value={formData.firstName}
+            onChange={handleChange}
+          />
+          <input
+            name="lastName"
+            placeholder="Last Name"
+            value={formData.lastName}
+            onChange={handleChange}
+          />
+          <input
+            name="role"
+            placeholder="Role/Title"
+            value={formData.role}
+            onChange={handleChange}
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+          />
 
           <div className={styles.privacy}>
             <input
@@ -63,7 +104,10 @@ const FreeCourseGuide = () => {
             />
             <label>
               I agree to the{' '}
-              <span onClick={() => setShowPolicy(!showPolicy)} className={styles.policyLink}>
+              <span
+                onClick={() => setShowPolicy(!showPolicy)}
+                className={styles.policyLink}
+              >
                 Privacy & Data Management Policy
               </span>
             </label>
@@ -72,7 +116,8 @@ const FreeCourseGuide = () => {
           {showPolicy && (
             <div className={styles.policyBox}>
               <p>
-                This is a mock Privacy & Data Management Policy. We value your privacy and will not share your information.
+                This is a mock Privacy & Data Management Policy. We value your
+                privacy and will not share your information.
               </p>
             </div>
           )}
@@ -87,3 +132,4 @@ const FreeCourseGuide = () => {
 };
 
 export default FreeCourseGuide;
+
