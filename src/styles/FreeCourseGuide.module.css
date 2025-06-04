@@ -9,7 +9,7 @@
   background-color: #ffffff;
 }
 
-input {
+.myInputClass {
   display: block;
   width: 100%;
   margin-bottom: 1rem;
