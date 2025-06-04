@@ -1,0 +1,56 @@
+.container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f2f2f2;
+  border: 2px solid #c0c0c0;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #0046ad; /* RX-78-2 Blue */
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #999;
+}
+
+.privacy {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.policyLink {
+  color: #e60012; /* RX-78-2 Red */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.policyBox {
+  background-color: #e0e0e0;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-left: 4px solid #0046ad;
+}
+
+.thankYou {
+  color: green;
+  font-weight: bold;
+}
