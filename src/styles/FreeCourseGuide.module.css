@@ -18,8 +18,8 @@
   border: 1px solid #ccc;
 }
 
-/* Wrap global element selectors in :global */
-:global(button) {
+/* Correct :global syntax with curly braces, not parentheses */
+:global button {
   background-color: #0046ad; /* RX-78-2 Blue */
   color: white;
   border: none;
@@ -28,7 +28,7 @@
   cursor: pointer;
 }
 
-:global(button:disabled) {
+:global button:disabled {
   background-color: #999;
 }
 
@@ -55,4 +55,5 @@
   color: green;
   font-weight: bold;
 }
+
 
