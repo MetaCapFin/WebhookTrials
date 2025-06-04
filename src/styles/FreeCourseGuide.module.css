@@ -1,12 +1,13 @@
+/* src/styles/FreeCourseGuide.module.css */
+
 .container {
   max-width: 500px;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: #f2f2f2;
+  background-color: #ffffff; /* keep only one background */
   border: 2px solid #c0c0c0;
   border-radius: 8px;
   font-family: Arial, sans-serif;
-  background-color: #ffffff;
 }
 
 .myInputClass {
@@ -16,20 +17,6 @@
   padding: 0.6rem;
   border-radius: 4px;
   border: 1px solid #ccc;
-}
-
-/* Correct :global syntax with curly braces, not parentheses */
-:global button {
-  background-color: #0046ad; /* RX-78-2 Blue */
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-:global button:disabled {
-  background-color: #999;
 }
 
 .privacy {
@@ -55,5 +42,6 @@
   color: green;
   font-weight: bold;
 }
+
 
 
