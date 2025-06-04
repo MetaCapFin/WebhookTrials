@@ -18,7 +18,8 @@
   border: 1px solid #ccc;
 }
 
-button {
+/* Wrap global element selectors in :global */
+:global(button) {
   background-color: #0046ad; /* RX-78-2 Blue */
   color: white;
   border: none;
@@ -27,7 +28,7 @@ button {
   cursor: pointer;
 }
 
-button:disabled {
+:global(button:disabled) {
   background-color: #999;
 }
 
@@ -54,3 +55,4 @@ button:disabled {
   color: green;
   font-weight: bold;
 }
+
