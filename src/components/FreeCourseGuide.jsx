@@ -66,12 +66,12 @@ const FreeCourseGuide = () => {
   return (
     <>
       <header className={styles.pageHeader}>
-        <h1>TuCielo Free Course Guide</h1>
-        <p>Your path to mastering automation with n8n and Make.com</p>
+        <h1>Automations PRactice</h1>
+        <p>n8n and Make.com automations testing</p>
       </header>
 
       <div className={styles.container}>
-        <h2 className={styles.heading}>Free Course Guide</h2>
+        <h2 className={styles.heading}>Form Submissions into G-Sheets</h2>
 
         {submitted ? (
           <>
@@ -168,24 +168,25 @@ const FreeCourseGuide = () => {
         )}
 
         <section className={styles.blogSection}>
-          <h3 className={styles.blogTitle}>Latest Blog Post</h3>
+          <h3 className={styles.blogTitle}>Blog Posting Testing</h3>
           <article className={styles.blogPost}>
             <h4 className={styles.postTitle}>
-              The Florida HOA Financing Crisis
+              Why Make.com Can’t Watch Your Google Drive (If You're Using Gmail)
             </h4>
             <p className={styles.postExcerpt}>
-              Many Florida HOAs are facing unprecedented repair and insurance
-              costs. Discover how innovative financing options are helping
-              communities thrive.
+              Running into errors trying to use Make.com’s “Watch Files in Folder” with your Gmail?
+              Google blocks certain permissions for personal accounts — but there’s a workaround.
+              Learn how to automate blog publishing without a Workspace account.
             </p>
             <a
               className={styles.readMore}
-              href="/blog/florida-hoa-financing-crisis"
+              href="/blog/make-google-drive-restricted-scopes"
             >
               Read More →
             </a>
           </article>
         </section>
+
       </div>
 
       <footer className={styles.footer}>
