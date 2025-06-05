@@ -85,7 +85,7 @@
   font-weight: bold;
 }
 
-button {
+.submitButton {
   background-color: #e60012;
   color: white;
   border: none;
@@ -96,7 +96,7 @@ button {
   margin-top: 1rem;
 }
 
-button:disabled {
+.submitButton:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
