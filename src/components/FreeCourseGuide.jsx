@@ -52,7 +52,7 @@ const FreeCourseGuide = () => {
   return (
     <>
       <header className={styles.pageHeader}>
-        <h1>TuCielo Free Course Guide</h1>
+        <h1>Automations Trial Page</h1>
         <p>Your path to mastering automation with n8n and Make.com</p>
       </header>
       <div className={styles.container}>
