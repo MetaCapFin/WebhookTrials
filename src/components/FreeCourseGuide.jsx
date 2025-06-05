@@ -51,7 +51,7 @@ const FreeCourseGuide = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Free Course Guide</h2>
+     <h2 className={styles.heading}>Free Course Guide</h2>
 
       {submitted ? (
         <p className={styles.thankYou}>Thanks! We'll be in touch soon.</p>
