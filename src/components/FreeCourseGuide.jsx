@@ -49,6 +49,20 @@ const FreeCourseGuide = () => {
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      company: '',
+      firstName: '',
+      lastName: '',
+      role: '',
+      email: '',
+      phone: '',
+      acceptedPrivacy: false,
+    });
+    setSubmitted(false);
+    setShowPolicy(false);
+  };
+
   return (
     <>
       <header className={styles.pageHeader}>
@@ -60,21 +74,75 @@ const FreeCourseGuide = () => {
         <h2 className={styles.heading}>Free Course Guide</h2>
 
         {submitted ? (
-          <p className={styles.thankYou}>Thanks! We'll be in touch soon.</p>
+          <>
+            <p className={styles.thankYou}>Thanks! We'll be in touch soon.</p>
+            <button
+              type="button"
+              onClick={resetForm}
+              className={styles.submitButton}
+            >
+              Return to Form
+            </button>
+          </>
         ) : (
           <form onSubmit={handleSubmit}>
-            <input className={styles.myInputClass} name="company" placeholder="Company" value={formData.company} onChange={handleChange} />
-            <input className={styles.myInputClass} name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
-            <input className={styles.myInputClass} name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
-            <input className={styles.myInputClass} name="role" placeholder="Role/Title" value={formData.role} onChange={handleChange} />
-            <input className={styles.myInputClass} name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-            <input className={styles.myInputClass} name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
+            <input
+              className={styles.myInputClass}
+              name="company"
+              placeholder="Company"
+              value={formData.company}
+              onChange={handleChange}
+            />
+            <input
+              className={styles.myInputClass}
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+            />
+            <input
+              className={styles.myInputClass}
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+            />
+            <input
+              className={styles.myInputClass}
+              name="role"
+              placeholder="Role/Title"
+              value={formData.role}
+              onChange={handleChange}
+            />
+            <input
+              className={styles.myInputClass}
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <input
+              className={styles.myInputClass}
+              name="phone"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={handleChange}
+            />
 
             <div className={styles.privacy}>
-              <input type="checkbox" name="acceptedPrivacy" checked={formData.acceptedPrivacy} onChange={handleChange} />
+              <input
+                type="checkbox"
+                name="acceptedPrivacy"
+                checked={formData.acceptedPrivacy}
+                onChange={handleChange}
+              />
               <label>
                 I agree to the{' '}
-                <span onClick={() => setShowPolicy(!showPolicy)} className={styles.policyLink}>
+                <span
+                  onClick={() => setShowPolicy(!showPolicy)}
+                  className={styles.policyLink}
+                >
                   Privacy & Data Management Policy
                 </span>
               </label>
@@ -82,11 +150,18 @@ const FreeCourseGuide = () => {
 
             {showPolicy && (
               <div className={styles.policyBox}>
-                <p>This is a mock Privacy & Data Management Policy. We value your privacy and will not share your information.</p>
+                <p>
+                  This is a mock Privacy & Data Management Policy. We value your
+                  privacy and will not share your information.
+                </p>
               </div>
             )}
 
-            <button className={styles.submitButton}type="submit" disabled={!isFormValid}>
+            <button
+              className={styles.submitButton}
+              type="submit"
+              disabled={!isFormValid}
+            >
               Submit
             </button>
           </form>
@@ -95,11 +170,18 @@ const FreeCourseGuide = () => {
         <section className={styles.blogSection}>
           <h3 className={styles.blogTitle}>Latest Blog Post</h3>
           <article className={styles.blogPost}>
-            <h4 className={styles.postTitle}>The Florida HOA Financing Crisis</h4>
+            <h4 className={styles.postTitle}>
+              The Florida HOA Financing Crisis
+            </h4>
             <p className={styles.postExcerpt}>
-              Many Florida HOAs are facing unprecedented repair and insurance costs. Discover how innovative financing options are helping communities thrive.
+              Many Florida HOAs are facing unprecedented repair and insurance
+              costs. Discover how innovative financing options are helping
+              communities thrive.
             </p>
-            <a className={styles.readMore} href="/blog/florida-hoa-financing-crisis">
+            <a
+              className={styles.readMore}
+              href="/blog/florida-hoa-financing-crisis"
+            >
               Read More →
             </a>
           </article>
