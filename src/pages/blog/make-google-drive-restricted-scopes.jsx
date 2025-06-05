@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import styles from '../../styles/BlogPost.module.css'; // update path if needed
 
 export default function MakeGoogleDriveRestrictedScopesPost() {
+  const navigate = useNavigate();
+
   return (
     <section className={styles.blogPost}>
       <h1 className={styles.title}>
@@ -47,6 +50,16 @@ export default function MakeGoogleDriveRestrictedScopesPost() {
         Google restricts real-time file triggers for personal Gmail users. But with polling or a Workspace upgrade, you can still build a powerful no-code publishing workflow.
       </p>
       <p><strong>TL;DR:</strong> Use Google Workspace for real-time triggers, or use polling as a workaround for Gmail accounts.</p>
+
+      {/* Back to Home Button */}
+      <button
+        className={styles.backButton}
+        onClick={() => navigate('/')}
+        type="button"
+      >
+        ← Back to Home
+      </button>
     </section>
   );
 }
+
