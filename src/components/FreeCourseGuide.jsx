@@ -86,7 +86,7 @@ const FreeCourseGuide = () => {
               </div>
             )}
 
-            <button type="submit" disabled={!isFormValid}>
+            <button className={styles.submitButton}type="submit" disabled={!isFormValid}>
               Submit
             </button>
           </form>
