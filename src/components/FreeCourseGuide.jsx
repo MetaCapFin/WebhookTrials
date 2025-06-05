@@ -52,9 +52,10 @@ const FreeCourseGuide = () => {
   return (
     <>
       <header className={styles.pageHeader}>
-        <h1>Automations Trial Page</h1>
+        <h1>TuCielo Free Course Guide</h1>
         <p>Your path to mastering automation with n8n and Make.com</p>
       </header>
+
       <div className={styles.container}>
         <h2 className={styles.heading}>Free Course Guide</h2>
 
@@ -62,63 +63,18 @@ const FreeCourseGuide = () => {
           <p className={styles.thankYou}>Thanks! We'll be in touch soon.</p>
         ) : (
           <form onSubmit={handleSubmit}>
-            <input
-              className={styles.myInputClass}
-              name="company"
-              placeholder="Company"
-              value={formData.company}
-              onChange={handleChange}
-            />
-            <input
-              className={styles.myInputClass}
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
-              onChange={handleChange}
-            />
-            <input
-              className={styles.myInputClass}
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={handleChange}
-            />
-            <input
-              className={styles.myInputClass}
-              name="role"
-              placeholder="Role/Title"
-              value={formData.role}
-              onChange={handleChange}
-            />
-            <input
-              className={styles.myInputClass}
-              name="email"
-              type="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            <input
-              className={styles.myInputClass}
-              name="phone"
-              placeholder="Phone Number"
-              value={formData.phone}
-              onChange={handleChange}
-            />
+            <input className={styles.myInputClass} name="company" placeholder="Company" value={formData.company} onChange={handleChange} />
+            <input className={styles.myInputClass} name="firstName" placeholder="First Name" value={formData.firstName} onChange={handleChange} />
+            <input className={styles.myInputClass} name="lastName" placeholder="Last Name" value={formData.lastName} onChange={handleChange} />
+            <input className={styles.myInputClass} name="role" placeholder="Role/Title" value={formData.role} onChange={handleChange} />
+            <input className={styles.myInputClass} name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+            <input className={styles.myInputClass} name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} />
 
             <div className={styles.privacy}>
-              <input
-                type="checkbox"
-                name="acceptedPrivacy"
-                checked={formData.acceptedPrivacy}
-                onChange={handleChange}
-              />
+              <input type="checkbox" name="acceptedPrivacy" checked={formData.acceptedPrivacy} onChange={handleChange} />
               <label>
                 I agree to the{' '}
-                <span
-                  onClick={() => setShowPolicy(!showPolicy)}
-                  className={styles.policyLink}
-                >
+                <span onClick={() => setShowPolicy(!showPolicy)} className={styles.policyLink}>
                   Privacy & Data Management Policy
                 </span>
               </label>
@@ -126,10 +82,7 @@ const FreeCourseGuide = () => {
 
             {showPolicy && (
               <div className={styles.policyBox}>
-                <p>
-                  This is a mock Privacy & Data Management Policy. We value your
-                  privacy and will not share your information.
-                </p>
+                <p>This is a mock Privacy & Data Management Policy. We value your privacy and will not share your information.</p>
               </div>
             )}
 
@@ -139,7 +92,6 @@ const FreeCourseGuide = () => {
           </form>
         )}
 
-        {/* Blog Section below form */}
         <section className={styles.blogSection}>
           <h3 className={styles.blogTitle}>Latest Blog Post</h3>
           <article className={styles.blogPost}>
@@ -147,20 +99,22 @@ const FreeCourseGuide = () => {
             <p className={styles.postExcerpt}>
               Many Florida HOAs are facing unprecedented repair and insurance costs. Discover how innovative financing options are helping communities thrive.
             </p>
-            <a
-              className={styles.readMore}
-              href="/blog/florida-hoa-financing-crisis"
-            >
+            <a className={styles.readMore} href="/blog/florida-hoa-financing-crisis">
               Read More →
             </a>
           </article>
         </section>
       </div>
+
+      <footer className={styles.footer}>
+        <p>&copy; {new Date().getFullYear()} TuCielo. All rights reserved.</p>
+      </footer>
     </>
   );
 };
 
 export default FreeCourseGuide;
+
 
 
 
