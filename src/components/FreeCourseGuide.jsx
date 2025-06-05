@@ -126,6 +126,20 @@ const FreeCourseGuide = () => {
             Submit
           </button>
         </form>
+      
+      <section className={styles.blogSection}>
+        <h3 className={styles.blogTitle}>Latest Blog Post</h3>
+        <article className={styles.blogPost}>
+          <h4 className={styles.postTitle}>The Florida HOA Financing Crisis</h4>
+          <p className={styles.postExcerpt}>
+            Many Florida HOAs are facing unprecedented repair and insurance costs. Discover how innovative financing options are helping communities thrive.
+          </p>
+          <a className={styles.readMore} href="/blog/florida-hoa-financing-crisis">
+            Read More →
+          </a>
+        </article>
+      </section>
+
       )}
     </div>
   );
