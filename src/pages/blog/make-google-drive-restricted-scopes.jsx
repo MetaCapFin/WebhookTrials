@@ -1,9 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useRouter } from 'next/router'; // Next.js router
 import styles from '../../styles/BlogPost.module.css'; // update path if needed
 
 export default function MakeGoogleDriveRestrictedScopesPost() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   return (
     <section className={styles.blogPost}>
@@ -54,7 +54,7 @@ export default function MakeGoogleDriveRestrictedScopesPost() {
       {/* Back to Home Button */}
       <button
         className={styles.backButton}
-        onClick={() => navigate('/')}
+        onClick={() => router.push('/')}
         type="button"
       >
         ← Back to Home
@@ -62,4 +62,5 @@ export default function MakeGoogleDriveRestrictedScopesPost() {
     </section>
   );
 }
+
 
