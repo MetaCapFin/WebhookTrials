@@ -58,30 +58,35 @@ const FreeCourseGuide = () => {
       ) : (
         <form onSubmit={handleSubmit}>
           <input
+            className={styles.myInputClass}
             name="company"
             placeholder="Company"
             value={formData.company}
             onChange={handleChange}
           />
           <input
+            className={styles.myInputClass}
             name="firstName"
             placeholder="First Name"
             value={formData.firstName}
             onChange={handleChange}
           />
           <input
+            className={styles.myInputClass}
             name="lastName"
             placeholder="Last Name"
             value={formData.lastName}
             onChange={handleChange}
           />
           <input
+            className={styles.myInputClass}
             name="role"
             placeholder="Role/Title"
             value={formData.role}
             onChange={handleChange}
           />
           <input
+            className={styles.myInputClass}
             name="email"
             type="email"
             placeholder="Email"
@@ -89,6 +94,7 @@ const FreeCourseGuide = () => {
             onChange={handleChange}
           />
           <input
+            className={styles.myInputClass}
             name="phone"
             placeholder="Phone Number"
             value={formData.phone}
@@ -146,4 +152,5 @@ const FreeCourseGuide = () => {
 };
 
 export default FreeCourseGuide;
+
 
