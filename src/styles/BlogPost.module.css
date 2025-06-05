@@ -1,0 +1,67 @@
+/* BlogPost.module.css */
+
+.blogPost {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  font-family: 'Mulish', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.blogPost h1,
+.blogPost h2,
+.blogPost h3,
+.blogPost h4 {
+  color: #004080; /* A strong dark blue, fits Gundam RX-78-2 theme */
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.blogPost h1 {
+  font-size: 2.25rem;
+  border-bottom: 3px solid #1976d2;
+  padding-bottom: 0.5rem;
+}
+
+.blogPost p {
+  margin-bottom: 1.25rem;
+  font-size: 1.125rem;
+}
+
+.blogPost a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.blogPost a:hover {
+  text-decoration: underline;
+}
+
+.blogPost ul,
+.blogPost ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.blogPost blockquote {
+  margin: 1.25rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid #1976d2;
+  color: #555;
+  font-style: italic;
+  background-color: #e3f2fd;
+}
+
+.blogPost code {
+  background-color: #e1e1e1;
+  padding: 0.15rem 0.3rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.95rem;
+}
