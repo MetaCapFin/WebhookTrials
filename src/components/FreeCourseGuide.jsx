@@ -42,7 +42,6 @@ const FreeCourseGuide = () => {
       );
 
       if (!response.ok) throw new Error('Webhook failed');
-
       setSubmitted(true);
     } catch (error) {
       alert('Submission failed. Please try again later.');
@@ -53,6 +52,7 @@ const FreeCourseGuide = () => {
   return (
     <div className={styles.container}>
       <h2>Free Course Guide</h2>
+
       {submitted ? (
         <p className={styles.thankYou}>Thanks! We'll be in touch soon.</p>
       ) : (
@@ -126,7 +126,9 @@ const FreeCourseGuide = () => {
             Submit
           </button>
         </form>
-      
+      )}
+
+      {/* Blog Section below form */}
       <section className={styles.blogSection}>
         <h3 className={styles.blogTitle}>Latest Blog Post</h3>
         <article className={styles.blogPost}>
@@ -139,8 +141,6 @@ const FreeCourseGuide = () => {
           </a>
         </article>
       </section>
-
-      )}
     </div>
   );
 };
