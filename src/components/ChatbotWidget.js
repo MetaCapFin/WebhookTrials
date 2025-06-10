@@ -1,29 +1,28 @@
 import { useState } from 'react';
 import Chatbot from './Chatbot';
 import styles from '../styles/Chatbot.module.css';
+import HaroIcon from '../assets/HaroNoBackground.png'; // adjust if path differs
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={styles['chatbot-widget']}>
-      {/* Floating Haro Icon */}
+    <div className={styles.chatbotWidget}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="chatbot-button"
+        className={styles.chatbotButton}
         aria-label="Open Haro Chat"
       >
-        <div className="eye left"></div>
-        <div className="eye right"></div>
+        <img src={HaroIcon.src} alt="Haro Icon" className={styles.haroImage} />
       </button>
 
-      {/* Chat Popup */}
       {isOpen && (
-        <div className="chatbot-popup">
-          <div className="chatbot-header">Haro Chat</div>
+        <div className={styles.chatbotPopup}>
+          <div className={styles.chatbotHeader}>Haro Chat</div>
           <Chatbot />
         </div>
       )}
     </div>
   );
 }
+
