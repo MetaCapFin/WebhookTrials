@@ -7,6 +7,8 @@ export default function Chatbot() {
   const [pilotName, setPilotName] = useState(null);
   const [isAskingName, setIsAskingName] = useState(true);
   const [awaitingMSCOConfirm, setAwaitingMSCOConfirm] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -22,9 +24,46 @@ export default function Chatbot() {
     });
   }, []);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, isTyping]);
+
+  const typeBotMessage = (fullText, onComplete) => {
+    setIsTyping(true);
+    let index = 0;
+
+    const interval = setInterval(() => {
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        // If last message is a bot typing message, update it
+        if (newMessages.length && newMessages[newMessages.length - 1].typing) {
+          newMessages[newMessages.length - 1].text += fullText.charAt(index);
+        } else {
+          // Add a new bot message with typing=true
+          newMessages.push({ sender: 'bot', text: fullText.charAt(index), typing: true });
+        }
+        return newMessages;
+      });
+
+      index++;
+      if (index === fullText.length) {
+        clearInterval(interval);
+        setMessages((prev) => {
+          const updated = [...prev];
+          if (updated.length && updated[updated.length - 1].typing) {
+            updated[updated.length - 1].typing = false;
+          }
+          return updated;
+        });
+        setIsTyping(false);
+        if (onComplete) onComplete();
+      }
+    }, 35); // typing speed in ms
+  };
+
   const handleSend = async () => {
     const trimmed = input.trim();
-    if (!trimmed) return;
+    if (!trimmed || isTyping) return; // prevent input while bot is typing
 
     const userMessage = { sender: 'user', text: trimmed };
     setMessages((prev) => [...prev, userMessage]);
@@ -33,10 +72,7 @@ export default function Chatbot() {
     if (isAskingName) {
       setPilotName(trimmed);
       setIsAskingName(false);
-      setMessages((prev) => [
-        ...prev,
-        { sender: 'bot', text: `Nice to meet you, ${trimmed}. Ready for commands when you are.` },
-      ]);
+      typeBotMessage(`Nice to meet you, ${trimmed}. Ready for commands when you are.`);
       return;
     }
 
@@ -49,16 +85,15 @@ export default function Chatbot() {
           { sender: 'bot', isImage: true, imageUrl: qrImageUrl }
         ]);
       } else {
-        setMessages((prev) => [
-          ...prev,
-          { sender: 'bot', text: "Understood, Pilot. Let me know if you'd like to try again." },
-        ]);
+        typeBotMessage("Understood, Pilot. Let me know if you'd like to try again.");
       }
       setAwaitingMSCOConfirm(false);
       return;
     }
 
+    // Normal chat message flow - call API
     try {
+      setIsTyping(true);
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -69,11 +104,7 @@ export default function Chatbot() {
 
       if (!res.ok) throw new Error(data.error || 'Unexpected server error');
 
-      const botMessage = {
-        sender: 'bot',
-        text: `Roger that, Pilot ${pilotName}. ${data.response}`,
-      };
-      setMessages((prev) => [...prev, botMessage]);
+      typeBotMessage(`Roger that, Pilot ${pilotName}. ${data.response}`);
     } catch (err) {
       console.error('OpenAI API error:', err);
       setMessages((prev) => [
@@ -82,44 +113,10 @@ export default function Chatbot() {
         { sender: 'bot', text: 'Would you like to be connected to the available MSCO?' }
       ]);
       setAwaitingMSCOConfirm(true);
+      setIsTyping(false);
     }
   };
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  const typeBotMessage = (fullText, onComplete) => {
-  let index = 0;
-  const interval = setInterval(() => {
-    setMessages((prev) => {
-      const currentText = prev[prev.length - 1]?.typing
-        ? prev[prev.length - 1].text + fullText.charAt(index)
-        : fullText.charAt(index);
-      const newMessages = [...prev];
-      if (newMessages.length > 0 && newMessages[newMessages.length - 1].typing) {
-        newMessages[newMessages.length - 1].text = currentText;
-      } else {
-        newMessages.push({ sender: 'bot', text: currentText, typing: true });
-      }
-      return newMessages;
-    });
-    index++;
-    if (index === fullText.length) {
-      clearInterval(interval);
-      setMessages((prev) => {
-        const updated = [...prev];
-        if (updated[updated.length - 1].typing) {
-          updated[updated.length - 1].typing = false;
-        }
-        return updated;
-      });
-      if (onComplete) onComplete();
-    }
-  }, 35); // typing speed (ms)
-};
-
-  
   return (
     <>
       <div className={styles.chatbotMessages}>
@@ -133,12 +130,14 @@ export default function Chatbot() {
               key={idx}
               className={`${styles.messageBubble} ${
                 msg.sender === 'user' ? styles.userBubble : styles.botBubble
-              }`}
+              } ${msg.typing ? styles.typingBubble : ''}`}
             >
               {msg.text}
+              {msg.typing && <span className={styles.typingIndicator}>|</span>}
             </div>
           )
         )}
+        {isTyping && !messages.some(m => m.typing) && <div className={styles.botBubble}>...</div>}
         <div ref={messagesEndRef} />
       </div>
 
@@ -157,13 +156,15 @@ export default function Chatbot() {
           placeholder={isAskingName ? 'Enter your name...' : 'Type command...'}
           autoComplete="off"
           className={styles.chatbotTextInput}
+          disabled={isTyping}
         />
-        <button onClick={handleSend}>
+        <button onClick={handleSend} disabled={isTyping || !input.trim()}>
           {isAskingName ? 'SUBMIT' : 'COMMAND'}
         </button>
       </div>
     </>
   );
 }
+
 
 
