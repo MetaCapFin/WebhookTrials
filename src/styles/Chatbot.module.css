@@ -3,8 +3,10 @@
   bottom: 24px;
   right: 24px;
   z-index: 9999;
+  font-family: 'Mulish', Arial, sans-serif;
 }
 
+/* Floating Haro Button */
 .chatbotButton {
   all: unset;
   cursor: pointer;
@@ -12,17 +14,19 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  background-color: transparent; /* ensure transparency */
+  box-shadow: 0 4px 12px rgba(0, 70, 173, 0.4); /* RX-78-2 Blue shadow */
+  background-color: transparent;
   padding: 0;
 }
 
+/* Haro image inside the button */
 .haroImage {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 50%;
-  background-color: transparent; /* ensure no background */
+  background-color: transparent; /* preserve transparency */
+  display: block;
 }
 
 /* Chat popup box */
@@ -32,49 +36,71 @@
   right: 0;
   width: 320px;
   height: 384px;
-  background-color: white;
+  background-color: #ffffff; /* RX white */
   border-radius: 12px;
-  border: 1px solid #d1d5db;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  border: 2px solid #0046ad; /* RX-78-2 Blue border */
+  box-shadow: 0 8px 20px rgba(0, 70, 173, 0.3); /* Blue-tinged shadow */
   display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 10000;
 }
 
+/* Header */
 .chatbotHeader {
-  background-color: #22c55e;
-  color: white;
+  background-color: #0046ad; /* RX Blue */
+  color: #ffffff;
   padding: 10px 16px;
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 1.1rem;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  text-align: center;
 }
 
+/* Message display */
 .chatbotMessages {
   flex: 1;
   overflow-y: auto;
   padding: 12px;
+  font-size: 0.95rem;
+  color: #000000;
+  background-color: #f8f8f8;
 }
 
+/* Input container */
 .chatbotInput {
   display: flex;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #ccc;
+  background-color: #ffffff;
 }
 
+/* Input field */
 .chatbotInput input {
   flex: 1;
   border: none;
   padding: 10px;
   outline: none;
+  font-size: 0.95rem;
+  font-family: 'Mulish', Arial, sans-serif;
+  color: #000000;
+  background-color: #ffffff;
 }
 
+/* Send button */
 .chatbotInput button {
-  background-color: #2563eb;
-  color: white;
+  background-color: #e60012; /* RX Red */
+  color: #ffffff;
+  font-weight: bold;
   padding: 0 16px;
   border: none;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
+
+.chatbotInput button:hover {
+  background-color: #b00000; /* darker red on hover */
+}
+
 
 
