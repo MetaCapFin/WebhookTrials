@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Chatbot from './Chatbot';
-import '../styles/Chatbot.css';  // ✅ CSS import
+import styles from '../styles/Chatbot.module.css';
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
