@@ -7,21 +7,34 @@ export default function Chatbot() {
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const trimmed = input.trim();
     if (!trimmed) return;
 
     const userMessage = { sender: 'user', text: trimmed };
-    const botMessage = { sender: 'bot', text: getBotResponse(trimmed) };
-
-    setMessages((prev) => [...prev, userMessage, botMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
-  };
 
-  const getBotResponse = (msg) => {
-    const lower = msg.toLowerCase();
-    if (lower.includes('hello')) return 'Hi! I’m Haro-bot!';
-    return "I'm still learning. Try saying 'hello'.";
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: trimmed }),
+      });
+
+      const data = await response.json();
+      const botMessage = {
+        sender: 'bot',
+        text: data.reply || "I'm still learning. Try saying 'hello'.",
+      };
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (error) {
+      console.error('Error calling API:', error);
+      setMessages((prev) => [
+        ...prev,
+        { sender: 'bot', text: "Oops! Something went wrong talking to the AI." },
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -65,4 +78,5 @@ export default function Chatbot() {
     </>
   );
 }
+
 
