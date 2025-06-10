@@ -16,23 +16,20 @@ export default function Chatbot() {
     setInput('');
 
     try {
-      const response = await fetch('/api/chat', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: trimmed }),
       });
 
-      const data = await response.json();
-      const botMessage = {
-        sender: 'bot',
-        text: data.reply || "I'm still learning. Try saying 'hello'.",
-      };
+      const data = await res.json();
+      const botMessage = { sender: 'bot', text: data.response };
       setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
-      console.error('Error calling API:', error);
+    } catch (err) {
+      console.error(err);
       setMessages((prev) => [
         ...prev,
-        { sender: 'bot', text: "Oops! Something went wrong talking to the AI." },
+        { sender: 'bot', text: 'Error connecting to AI. Try again later.' },
       ]);
     }
   };
@@ -69,14 +66,12 @@ export default function Chatbot() {
               handleSend();
             }
           }}
-          placeholder="Type command..."
+          placeholder="Ask me something..."
           autoComplete="off"
           className={styles.chatbotTextInput}
         />
-        <button onClick={handleSend}>COMMAND</button>
+        <button onClick={handleSend}>SEND</button>
       </div>
     </>
   );
 }
-
-
