@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import Chatbot from './Chatbot';
-
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -10,15 +7,16 @@ export default function ChatbotWidget() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-16 h-16 bg-green-500 hover:bg-green-600 rounded-full shadow-lg flex items-center justify-center relative"
+        aria-label="Open Haro Chat"
       >
-        {/* Haro face: simple eyes */}
+        {/* Haro face (eyes) */}
         <div className="w-2 h-2 bg-black rounded-full absolute top-[30%] left-[30%]"></div>
         <div className="w-2 h-2 bg-black rounded-full absolute top-[30%] right-[30%]"></div>
       </button>
 
       {/* Chat Popup */}
       {isOpen && (
-        <div className="w-80 h-96 bg-white rounded-xl shadow-xl mt-2 border border-gray-300 flex flex-col">
+        <div className="absolute bottom-20 right-0 w-80 h-96 bg-white rounded-xl shadow-xl border border-gray-300 flex flex-col">
           <div className="bg-green-500 text-white px-4 py-2 rounded-t-xl font-semibold">
             Haro Chat
           </div>
@@ -28,3 +26,4 @@ export default function ChatbotWidget() {
     </div>
   );
 }
+
