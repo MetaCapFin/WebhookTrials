@@ -23,14 +23,20 @@ export default function Chatbot() {
       });
 
       const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Unexpected server error');
+      }
+
       const botMessage = { sender: 'bot', text: data.response };
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
-      console.error(err);
-      setMessages((prev) => [
-        ...prev,
-        { sender: 'bot', text: 'Error connecting to AI. Try again later.' },
-      ]);
+      console.error('Chatbot error:', err);
+      const errorMessage = {
+        sender: 'bot',
+        text: `⚠️ Error: ${err.message}`,
+      };
+      setMessages((prev) => [...prev, errorMessage]);
     }
   };
 
@@ -66,12 +72,13 @@ export default function Chatbot() {
               handleSend();
             }
           }}
-          placeholder="Ask me something..."
+          placeholder="Type command..."
           autoComplete="off"
           className={styles.chatbotTextInput}
         />
-        <button onClick={handleSend}>SEND</button>
+        <button onClick={handleSend}>COMMAND</button>
       </div>
     </>
   );
 }
+
