@@ -1,5 +1,5 @@
-import FreeCourseGuide from '../src/components/FreeCourseGuide'
-import ChatbotWidget from '../src/components/ChatbotWidget'
+import FreeCourseGuide from '../components/FreeCourseGuide'
+import ChatbotWidget from '../components/ChatbotWidget'
 
 export default function Home() {
   return (
@@ -9,4 +9,5 @@ export default function Home() {
     </main>
   )
 }
+
 
