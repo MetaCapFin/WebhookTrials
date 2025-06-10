@@ -6,7 +6,7 @@ export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="chatbot-widget">
+    <div className={styles.chatbotWidget}>
       {/* Floating Haro Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
