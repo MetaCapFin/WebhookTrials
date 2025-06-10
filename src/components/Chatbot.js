@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import styles from '../styles/Chatbot.module.css';
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([]);
@@ -28,17 +29,15 @@ export default function Chatbot() {
   }, [messages]);
 
   return (
-    <div className="chatbotPopup">
-      <div className="chatbotHeader">Haro Chat</div>
-
-      <div className="chatbotMessages">
+    <>
+      <div className={styles.chatbotMessages}>
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`p-2 my-1 rounded-md max-w-[80%] ${
+            className={`${styles.messageBubble} ${
               msg.sender === 'user'
-                ? 'bg-[#0046ad] text-white ml-auto text-right'
-                : 'bg-[#0e0e0e] text-[#00f0ff] border border-[#00f0ff33] mr-auto text-left'
+                ? styles.userBubble
+                : styles.botBubble
             }`}
           >
             {msg.text}
@@ -47,10 +46,10 @@ export default function Chatbot() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="chatbotInput">
+      <div className={styles.chatbotInput}>
         <input
           ref={inputRef}
-          className="chatbotTextInput"
+          type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
@@ -64,7 +63,6 @@ export default function Chatbot() {
         />
         <button onClick={handleSend}>COMMAND</button>
       </div>
-    </div>
+    </>
   );
 }
-
