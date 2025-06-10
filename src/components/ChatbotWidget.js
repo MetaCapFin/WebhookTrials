@@ -13,8 +13,9 @@ export default function ChatbotWidget() {
         className={styles.chatbotButton}
         aria-label="Open Haro Chat"
       >
-        <img src={HaroIcon.src} alt="Haro Icon" className={styles.haroImage} />
+        <img src="/HaroNoBackground.png" alt="Haro" className={styles.haroImage} />
       </button>
+
 
       {isOpen && (
         <div className={styles.chatbotPopup}>
