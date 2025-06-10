@@ -13,11 +13,13 @@ export default function Chatbot() {
   const qrImageUrl = '/qr-connect-msco.png'; // Replace with your real QR image path
 
   useEffect(() => {
-    const initialMessages = [
-      { sender: 'bot', text: '👋 Hello Pilot, welcome to your MS interface.' },
-      { sender: 'bot', text: 'What is your name, Pilot?' },
-    ];
-    setMessages(initialMessages);
+    typeBotMessage('👋 Hello Pilot, welcome to your MS interface.', () => {
+      setTimeout(() => {
+        typeBotMessage('What is your name, Pilot?', () => {
+          setIsAskingName(true);
+        });
+      }, 600);
+    });
   }, []);
 
   const handleSend = async () => {
@@ -87,6 +89,37 @@ export default function Chatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  const typeBotMessage = (fullText, onComplete) => {
+  let index = 0;
+  const interval = setInterval(() => {
+    setMessages((prev) => {
+      const currentText = prev[prev.length - 1]?.typing
+        ? prev[prev.length - 1].text + fullText.charAt(index)
+        : fullText.charAt(index);
+      const newMessages = [...prev];
+      if (newMessages.length > 0 && newMessages[newMessages.length - 1].typing) {
+        newMessages[newMessages.length - 1].text = currentText;
+      } else {
+        newMessages.push({ sender: 'bot', text: currentText, typing: true });
+      }
+      return newMessages;
+    });
+    index++;
+    if (index === fullText.length) {
+      clearInterval(interval);
+      setMessages((prev) => {
+        const updated = [...prev];
+        if (updated[updated.length - 1].typing) {
+          updated[updated.length - 1].typing = false;
+        }
+        return updated;
+      });
+      if (onComplete) onComplete();
+    }
+  }, 35); // typing speed (ms)
+};
+
+  
   return (
     <>
       <div className={styles.chatbotMessages}>
