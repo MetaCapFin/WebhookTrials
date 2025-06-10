@@ -50,7 +50,7 @@ export default function Chatbot() {
       <div className="chatbotInput">
         <input
           ref={inputRef}
-          type="text"
+          className="chatbotTextInput"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
@@ -67,3 +67,4 @@ export default function Chatbot() {
     </div>
   );
 }
+
