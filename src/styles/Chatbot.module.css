@@ -14,18 +14,17 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 70, 173, 0.4); /* RX-78-2 Blue shadow */
+  box-shadow: 0 4px 12px rgba(0, 70, 173, 0.4);
   background-color: transparent;
   padding: 0;
 }
 
-/* Haro image inside the button */
 .haroImage {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 50%;
-  background-color: transparent; /* preserve transparency */
+  background-color: transparent;
   display: block;
 }
 
@@ -36,10 +35,10 @@
   right: 0;
   width: 320px;
   height: 384px;
-  background-color: #ffffff; /* RX white */
+  background-color: #ffffff;
   border-radius: 12px;
-  border: 2px solid #0046ad; /* RX-78-2 Blue border */
-  box-shadow: 0 8px 20px rgba(0, 70, 173, 0.3); /* Blue-tinged shadow */
+  border: 2px solid #0046ad;
+  box-shadow: 0 8px 20px rgba(0, 70, 173, 0.3);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -48,7 +47,7 @@
 
 /* Header */
 .chatbotHeader {
-  background-color: #0046ad; /* RX Blue */
+  background-color: #0046ad;
   color: #ffffff;
   padding: 10px 16px;
   font-weight: 800;
@@ -71,44 +70,11 @@
 /* Input container */
 .chatbotInput {
   display: flex;
-  border-top: 1px solid #ccc;
-  background-color: #ffffff;
-}
-
-/* Input field */
-.chatbotInput input {
-  flex: 1;
-  border: none;
-  padding: 10px;
-  outline: none;
-  font-size: 0.95rem;
-  font-family: 'Mulish', Arial, sans-serif;
-  color: #000000;
-  background-color: #ffffff;
-}
-
-/* Send button */
-.chatbotInput button {
-  background-color: #e60012; /* RX Red */
-  color: #ffffff;
-  font-weight: bold;
-  padding: 0 16px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.chatbotInput button:hover {
-  background-color: #b00000; /* darker red on hover */
-}
-
-/* Input area like a ZERO System panel */
-.chatbotInput {
-  display: flex;
   align-items: center;
   background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
-  border-top: 2px solid #00f0ff; /* cyan glow line */
+  border-top: 2px solid #00f0ff;
   box-shadow: inset 0 0 8px #00f0ff44;
+  position: relative;
 }
 
 /* Typing input box */
@@ -119,13 +85,35 @@
   padding: 10px;
   font-size: 0.95rem;
   font-family: 'Mulish', monospace;
-  color: #00f0ff; /* neon cyan */
+  color: #00f0ff;
   outline: none;
-  caret-color: #ffcc00; /* RX yellow for cursor */
+  caret-color: transparent; /* hide default caret */
   text-shadow: 0 0 4px #00f0ff;
+  animation: dataFlicker 2s infinite alternate;
+  position: relative;
+  z-index: 2;
 }
 
-/* Send button as a sharp ZERO-style button */
+/* Glowing input border on focus */
+.chatbotInput input:focus {
+  border: 1px solid #00f0ff;
+  box-shadow: 0 0 6px #00f0ff, inset 0 0 4px #00f0ff44;
+}
+
+/* Blinking caret effect */
+.chatbotInput::after {
+  content: '|';
+  position: absolute;
+  right: 42px;
+  bottom: 12px;
+  font-size: 1rem;
+  color: #ffcc00;
+  animation: caretBlink 1s infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Send button */
 .chatbotInput button {
   background-color: transparent;
   color: #ffcc00;
@@ -136,6 +124,8 @@
   cursor: pointer;
   transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
   text-shadow: 0 0 4px #ffcc00;
+  position: relative;
+  z-index: 2;
 }
 
 .chatbotInput button:hover {
@@ -144,7 +134,7 @@
   text-shadow: none;
 }
 
-/* 👁️‍🗨️ ZERO System scanlines overlay on the popup */
+/* Scanline overlay */
 .chatbotPopup::before {
   content: '';
   position: absolute;
@@ -164,7 +154,7 @@
   z-index: 1;
 }
 
-/* Animated scanlines keyframe */
+/* Scanline animation */
 @keyframes scanlinesMove {
   0% {
     background-position: 0 0;
@@ -174,7 +164,7 @@
   }
 }
 
-/* 🟢 Data flicker animation for typing */
+/* Data flicker animation */
 @keyframes dataFlicker {
   0%, 100% {
     opacity: 1;
@@ -194,9 +184,8 @@
   }
 }
 
-/* Input flickering like a cockpit terminal */
-.chatbotInput input {
-  animation: dataFlicker 2s infinite alternate;
+/* Blinking caret animation */
+@keyframes caretBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
-
-
