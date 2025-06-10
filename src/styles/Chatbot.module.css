@@ -102,5 +102,101 @@
   background-color: #b00000; /* darker red on hover */
 }
 
+/* Input area like a ZERO System panel */
+.chatbotInput {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(145deg, #0a0a0a, #1a1a1a);
+  border-top: 2px solid #00f0ff; /* cyan glow line */
+  box-shadow: inset 0 0 8px #00f0ff44;
+}
+
+/* Typing input box */
+.chatbotInput input {
+  flex: 1;
+  background-color: transparent;
+  border: none;
+  padding: 10px;
+  font-size: 0.95rem;
+  font-family: 'Mulish', monospace;
+  color: #00f0ff; /* neon cyan */
+  outline: none;
+  caret-color: #ffcc00; /* RX yellow for cursor */
+  text-shadow: 0 0 4px #00f0ff;
+}
+
+/* Send button as a sharp ZERO-style button */
+.chatbotInput button {
+  background-color: transparent;
+  color: #ffcc00;
+  font-weight: bold;
+  padding: 0 16px;
+  border: 1px solid #ffcc00;
+  border-left: none;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+  text-shadow: 0 0 4px #ffcc00;
+}
+
+.chatbotInput button:hover {
+  background-color: #ffcc00;
+  color: #0a0a0a;
+  text-shadow: none;
+}
+
+/* 👁️‍🗨️ ZERO System scanlines overlay on the popup */
+.chatbotPopup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 255, 0.05),
+    rgba(0, 255, 255, 0.05) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: scanlinesMove 3s linear infinite;
+  z-index: 1;
+}
+
+/* Animated scanlines keyframe */
+@keyframes scanlinesMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 4px;
+  }
+}
+
+/* 🟢 Data flicker animation for typing */
+@keyframes dataFlicker {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 4px #00f0ff;
+  }
+  40% {
+    opacity: 0.85;
+    text-shadow: 0 0 6px #00f0ff;
+  }
+  60% {
+    opacity: 0.9;
+    text-shadow: 0 0 8px #00f0ff, 0 0 2px #ffcc00;
+  }
+  80% {
+    opacity: 0.8;
+    text-shadow: 0 0 10px #00f0ff, 0 0 2px #ffcc00;
+  }
+}
+
+/* Input flickering like a cockpit terminal */
+.chatbotInput input {
+  animation: dataFlicker 2s infinite alternate;
+}
 
 
