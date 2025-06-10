@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Chatbot from './Chatbot';
 import styles from '../styles/Chatbot.module.css';
-import HaroIcon from '../assets/HaroNoBackground.png'; // adjust if path differs
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +14,6 @@ export default function ChatbotWidget() {
       >
         <img src="/HaroNoBackground.png" alt="Haro" className={styles.haroImage} />
       </button>
-
 
       {isOpen && (
         <div className={styles.chatbotPopup}>
