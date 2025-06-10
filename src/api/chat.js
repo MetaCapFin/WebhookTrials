@@ -1,26 +1,28 @@
 import { OpenAI } from 'openai';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // ← this pulls the value from Vercel
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    try {
-      const userMessage = req.body.message;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-      const response = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: userMessage }],
-      });
+  const { message } = req.body;
 
-      res.status(200).json({ reply: response.choices[0].message.content });
-    } catch (error) {
-      console.error('OpenAI error:', error);
-      res.status(500).json({ error: 'Something went wrong.' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: message }],
+    });
+
+    const reply = completion.choices[0].message.content;
+    res.status(200).json({ reply });
+  } catch (error) {
+    console.error('OpenAI API error:', error);
+    res.status(500).json({ error: 'Failed to generate response' });
   }
 }
+
 
