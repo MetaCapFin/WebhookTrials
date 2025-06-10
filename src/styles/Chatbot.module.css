@@ -1,13 +1,11 @@
-/* Chatbot container floating at bottom-right */
-.chatbot-widget {
+.chatbotWidget {
   position: fixed;
   bottom: 24px;
   right: 24px;
   z-index: 9999;
 }
 
-/* Haro button using image */
-.chatbot-button {
+.chatbotButton {
   all: unset;
   cursor: pointer;
   display: inline-block;
@@ -15,36 +13,36 @@
   height: 80px;
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  background: transparent;
+  background-color: transparent; /* ensure transparency */
   padding: 0;
 }
 
-/* Haro image inside the button */
-.haro-image {
+.haroImage {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 50%;
+  background-color: transparent; /* ensure no background */
 }
 
 /* Chat popup box */
-.chatbot-popup {
+.chatbotPopup {
   position: absolute;
-  bottom: 90px; /* adjust to clear the button */
+  bottom: 90px;
   right: 0;
   width: 320px;
   height: 384px;
   background-color: white;
   border-radius: 12px;
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  border: 1px solid #d1d5db;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  z-index: 10000;
 }
 
-/* Chat header */
-.chatbot-header {
+.chatbotHeader {
   background-color: #22c55e;
   color: white;
   padding: 10px 16px;
@@ -53,30 +51,30 @@
   border-top-right-radius: 12px;
 }
 
-/* Chat body and input */
-.chatbot-messages {
+.chatbotMessages {
   flex: 1;
   overflow-y: auto;
   padding: 12px;
 }
 
-.chatbot-input {
+.chatbotInput {
   display: flex;
   border-top: 1px solid #e5e7eb;
 }
 
-.chatbot-input input {
+.chatbotInput input {
   flex: 1;
   border: none;
   padding: 10px;
   outline: none;
 }
 
-.chatbot-input button {
+.chatbotInput button {
   background-color: #2563eb;
   color: white;
   padding: 0 16px;
   border: none;
   cursor: pointer;
 }
+
 
