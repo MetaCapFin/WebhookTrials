@@ -12,7 +12,11 @@ export default function ChatbotWidget() {
         className={styles.chatbotButton}
         aria-label="Open Haro Chat"
       >
-        <img src="/HaroNoBackground.png" alt="Haro" className={styles.haroImage} />
+        <img
+          src="/HaroNoBackground.png"
+          alt="Haro"
+          className={styles.haroImage}
+        />
       </button>
 
       {isOpen && (
@@ -24,4 +28,5 @@ export default function ChatbotWidget() {
     </div>
   );
 }
+
 
