@@ -35,9 +35,7 @@ export default function Chatbot() {
           <div
             key={idx}
             className={`${styles.messageBubble} ${
-              msg.sender === 'user'
-                ? styles.userBubble
-                : styles.botBubble
+              msg.sender === 'user' ? styles.userBubble : styles.botBubble
             }`}
           >
             {msg.text}
@@ -60,9 +58,11 @@ export default function Chatbot() {
           }}
           placeholder="Type command..."
           autoComplete="off"
+          className={styles.chatbotTextInput}
         />
         <button onClick={handleSend}>COMMAND</button>
       </div>
     </>
   );
 }
+
