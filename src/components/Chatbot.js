@@ -18,7 +18,8 @@ export default function Chatbot() {
   };
 
   const getBotResponse = (msg) => {
-    if (msg.toLowerCase().includes('hello')) return 'Hi! I’m Haro-bot!';
+    const lower = msg.toLowerCase();
+    if (lower.includes('hello')) return 'Hi! I’m Haro-bot!';
     return "I'm still learning. Try saying 'hello'.";
   };
 
@@ -28,7 +29,7 @@ export default function Chatbot() {
 
   return (
     <div className="chatbotPopup">
-      <div className="chatbotHeader">HARO ONLINE</div>
+      <div className="chatbotHeader">Haro Chat</div>
 
       <div className="chatbotMessages">
         {messages.map((msg, idx) => (
@@ -37,7 +38,7 @@ export default function Chatbot() {
             className={`p-2 my-1 rounded-md max-w-[80%] ${
               msg.sender === 'user'
                 ? 'bg-[#0046ad] text-white ml-auto text-right'
-                : 'bg-gray-800 text-cyan-300 mr-auto text-left'
+                : 'bg-[#0e0e0e] text-[#00f0ff] border border-[#00f0ff33] mr-auto text-left'
             }`}
           >
             {msg.text}
