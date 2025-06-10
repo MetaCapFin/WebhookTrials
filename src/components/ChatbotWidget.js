@@ -1,7 +1,11 @@
+import { useState } from 'react';
+import Chatbot from './Chatbot';
+
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
+    // This container is fixed to the viewport
     <div className="fixed bottom-6 right-6 z-50">
       {/* Floating Haro Icon */}
       <button
