@@ -4,12 +4,14 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
   const handleSend = () => {
-    if (!input.trim()) return;
+    const trimmed = input.trim();
+    if (!trimmed) return;
 
-    const userMessage = { sender: 'user', text: input };
-    const botMessage = { sender: 'bot', text: getBotResponse(input) };
+    const userMessage = { sender: 'user', text: trimmed };
+    const botMessage = { sender: 'bot', text: getBotResponse(trimmed) };
 
     setMessages((prev) => [...prev, userMessage, botMessage]);
     setInput('');
@@ -46,15 +48,21 @@ export default function Chatbot() {
 
       <div className="chatbotInput">
         <input
+          ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleSend();
+            }
+          }}
           placeholder="Type command..."
+          autoComplete="off"
         />
         <button onClick={handleSend}>COMMAND</button>
       </div>
     </div>
   );
 }
-
