@@ -46,7 +46,7 @@ export default function Chatbot() {
           className="bg-blue-600 text-white px-4 rounded-r-md"
           onClick={handleSend}
         >
-          Send
+          SEND COMMAND
         </button>
       </div>
     </div>
