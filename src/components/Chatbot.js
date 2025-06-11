@@ -17,7 +17,7 @@ export default function Chatbot() {
   useEffect(() => {
     typeBotMessage('👋 Hello Pilot, welcome to your MS interface.', () => {
       setTimeout(() => {
-        typeBotMessage('What is your name, Pilot?', () => {
+        typeBotMessage('Please state Callsign or Name?', () => {
           setIsAskingName(true);
         });
       }, 600);
