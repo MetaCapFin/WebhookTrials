@@ -92,38 +92,42 @@ export default function Chatbot() {
   }, [messages]);
 
   const typeBotMessage = (fullText, onComplete) => {
-    setIsTyping(true);
-    let index = 0;
+  setIsTyping(true);
+  let index = 0;
 
-    const interval = setInterval(() => {
-      setMessages((prev) => {
-        const newMessages = [...prev];
-        if (newMessages.length && newMessages[newMessages.length - 1].typing) {
-          // Append next character without cutting off existing text
-          const currentText = newMessages[newMessages.length - 1].text || '';
-          newMessages[newMessages.length - 1].text = currentText + fullText.charAt(index);
-        } else {
-          // Add new bot message with first character
-          newMessages.push({ sender: 'bot', text: fullText.charAt(index), typing: true });
-        }
-        return newMessages;
-      });
+  const interval = setInterval(() => {
+    setMessages((prev) => {
+      const newMessages = [...prev];
 
-      index++;
-      if (index === fullText.length) {
-        clearInterval(interval);
-        setMessages((prev) => {
-          const updated = [...prev];
-          if (updated.length && updated[updated.length - 1].typing) {
-            updated[updated.length - 1].typing = false;
-          }
-          return updated;
-        });
-        setIsTyping(false);
-        if (onComplete) onComplete();
+      if (newMessages.length && newMessages[newMessages.length - 1].typing) {
+        // Append next character
+        newMessages[newMessages.length - 1].text += fullText.charAt(index);
+      } else {
+        // Add new bot message starting with empty text (not first char)
+        newMessages.push({ sender: 'bot', text: '', typing: true });
+        // Append first char on next tick (in next interval)
+        // so no premature cutting of first letter
       }
-    }, 35);
-  };
+
+      return newMessages;
+    });
+
+    index++;
+    if (index === fullText.length) {
+      clearInterval(interval);
+      setMessages((prev) => {
+        const updated = [...prev];
+        if (updated.length && updated[updated.length - 1].typing) {
+          updated[updated.length - 1].typing = false;
+        }
+        return updated;
+      });
+      setIsTyping(false);
+      if (onComplete) onComplete();
+    }
+  }, 35);
+};
+
 
   return (
     <>
