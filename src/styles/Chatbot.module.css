@@ -83,23 +83,23 @@
   display: inline-block;
 }
 
-/* User messages aligned left with light blue bubble */
-.leftAlign {
+/* User messages aligned RIGHT with light blue bubble */
+.rightAlign {
   background-color: #e1f5fe; /* light blue */
   color: #000000;
-  border-radius: 15px 15px 15px 0;
-  align-self: flex-start;
-  text-align: left;
-  box-shadow: 0 1px 3px rgba(0, 70, 173, 0.3);
-}
-
-/* Bot messages aligned right with dark bubble */
-.rightAlign {
-  background-color: #37474f; /* dark slate gray */
-  color: #ffffff;
   border-radius: 15px 15px 0 15px;
   align-self: flex-end;
   text-align: right;
+  box-shadow: 0 1px 3px rgba(0, 70, 173, 0.3);
+}
+
+/* Bot messages aligned LEFT with dark bubble */
+.leftAlign {
+  background-color: #37474f; /* dark slate gray */
+  color: #ffffff;
+  border-radius: 15px 15px 15px 0;
+  align-self: flex-start;
+  text-align: left;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
 }
 
@@ -271,5 +271,6 @@
     border-radius: 12px;
   }
 }
+
 
 
