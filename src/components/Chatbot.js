@@ -94,21 +94,20 @@ export default function Chatbot() {
   const typeBotMessage = (fullText, onComplete) => {
   setIsTyping(true);
   let index = 0;
+  let currentText = '';
 
   const interval = setInterval(() => {
+    currentText += fullText.charAt(index);
+
     setMessages((prev) => {
       const newMessages = [...prev];
-
       if (newMessages.length && newMessages[newMessages.length - 1].typing) {
-        // Append next character
-        newMessages[newMessages.length - 1].text += fullText.charAt(index);
+        // Replace the last typing message text with currentText
+        newMessages[newMessages.length - 1].text = currentText;
       } else {
-        // Add new bot message starting with empty text (not first char)
-        newMessages.push({ sender: 'bot', text: '', typing: true });
-        // Append first char on next tick (in next interval)
-        // so no premature cutting of first letter
+        // Add new bot message with currentText
+        newMessages.push({ sender: 'bot', text: currentText, typing: true });
       }
-
       return newMessages;
     });
 
@@ -127,7 +126,6 @@ export default function Chatbot() {
     }
   }, 35);
 };
-
 
   return (
     <>
