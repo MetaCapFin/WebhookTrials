@@ -130,20 +130,24 @@ export default function Chatbot() {
       <div className={styles.chatbotMessages}>
         {messages.map((msg, idx) =>
           msg.isImage ? (
-            <div key={idx} className={`${styles.botBubble} ${styles.messageSpacing} ${styles.rightAlign}`}>
+            <div
+              key={idx}
+              className={`${styles.botBubble} ${styles.messageSpacing} ${styles.leftAlign}`} // bot images on left
+            >
               <img src={msg.imageUrl} alt="QR Code" className={styles.qrImage} />
             </div>
           ) : (
             <div
               key={idx}
               className={`${styles.messageBubble} ${styles.messageSpacing} ${
-                msg.sender === 'user' ? styles.leftAlign : styles.rightAlign
+                msg.sender === 'user' ? styles.rightAlign : styles.leftAlign
               }`}
             >
               {msg.text}
             </div>
           )
         )}
+
         <div ref={messagesEndRef} />
       </div>
 
