@@ -8,7 +8,6 @@ export default function Chatbot() {
   const [isAskingName, setIsAskingName] = useState(true);
   const [awaitingMSCOConfirm, setAwaitingMSCOConfirm] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -17,16 +16,80 @@ export default function Chatbot() {
   useEffect(() => {
     typeBotMessage('👋 Hello Pilot, welcome to your MS interface.', () => {
       setTimeout(() => {
-        typeBotMessage('Please state Callsign or Name?', () => {
+        typeBotMessage('What is your name, Pilot?', () => {
           setIsAskingName(true);
         });
       }, 600);
     });
   }, []);
 
+  const handleSend = async () => {
+    if (isTyping) return; // Prevent sending while bot is typing
+    const trimmed = input.trim();
+    if (!trimmed) return;
+
+    const userMessage = { sender: 'user', text: trimmed };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput('');
+
+    if (isAskingName) {
+      setPilotName(trimmed);
+      setIsAskingName(false);
+      setMessages((prev) => [
+        ...prev,
+        { sender: 'bot', text: `Nice to meet you, ${trimmed}. Ready for commands when you are.` },
+      ]);
+      return;
+    }
+
+    if (awaitingMSCOConfirm) {
+      const lower = trimmed.toLowerCase();
+      if (['yes', 'y', 'sure', 'ok', 'affirmative', 'connect me'].some(word => lower.includes(word))) {
+        setMessages((prev) => [
+          ...prev,
+          { sender: 'bot', text: '📡 Please use your communications device to scan the code and connect directly to base.' },
+          { sender: 'bot', isImage: true, imageUrl: qrImageUrl }
+        ]);
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          { sender: 'bot', text: "Understood, Pilot. Let me know if you'd like to try again." },
+        ]);
+      }
+      setAwaitingMSCOConfirm(false);
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: trimmed }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Unexpected server error');
+
+      const botMessage = {
+        sender: 'bot',
+        text: `Roger that, Pilot ${pilotName}. ${data.response}`,
+      };
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (err) {
+      console.error('OpenAI API error:', err);
+      setMessages((prev) => [
+        ...prev,
+        { sender: 'bot', text: `❗ I'm having trouble processing your request.` },
+        { sender: 'bot', text: 'Would you like to be connected to the available MSCO?' }
+      ]);
+      setAwaitingMSCOConfirm(true);
+    }
+  };
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [messages]);
 
   const typeBotMessage = (fullText, onComplete) => {
     setIsTyping(true);
@@ -35,11 +98,12 @@ export default function Chatbot() {
     const interval = setInterval(() => {
       setMessages((prev) => {
         const newMessages = [...prev];
-        // If last message is a bot typing message, update it
         if (newMessages.length && newMessages[newMessages.length - 1].typing) {
-          newMessages[newMessages.length - 1].text += fullText.charAt(index);
+          // Append next character without cutting off existing text
+          const currentText = newMessages[newMessages.length - 1].text || '';
+          newMessages[newMessages.length - 1].text = currentText + fullText.charAt(index);
         } else {
-          // Add a new bot message with typing=true
+          // Add new bot message with first character
           newMessages.push({ sender: 'bot', text: fullText.charAt(index), typing: true });
         }
         return newMessages;
@@ -58,63 +122,7 @@ export default function Chatbot() {
         setIsTyping(false);
         if (onComplete) onComplete();
       }
-    }, 35); // typing speed in ms
-  };
-
-  const handleSend = async () => {
-    const trimmed = input.trim();
-    if (!trimmed || isTyping) return; // prevent input while bot is typing
-
-    const userMessage = { sender: 'user', text: trimmed };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput('');
-
-    if (isAskingName) {
-      setPilotName(trimmed);
-      setIsAskingName(false);
-      typeBotMessage(`Nice to meet you, ${trimmed}. Ready for commands when you are.`);
-      return;
-    }
-
-    if (awaitingMSCOConfirm) {
-      const lower = trimmed.toLowerCase();
-      if (['yes', 'y', 'sure', 'ok', 'affirmative', 'connect me'].some(word => lower.includes(word))) {
-        setMessages((prev) => [
-          ...prev,
-          { sender: 'bot', text: '📡 Please use your communications device to scan the code and connect directly to base.' },
-          { sender: 'bot', isImage: true, imageUrl: qrImageUrl }
-        ]);
-      } else {
-        typeBotMessage("Understood, Pilot. Let me know if you'd like to try again.");
-      }
-      setAwaitingMSCOConfirm(false);
-      return;
-    }
-
-    // Normal chat message flow - call API
-    try {
-      setIsTyping(true);
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: trimmed }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.error || 'Unexpected server error');
-
-      typeBotMessage(`Roger that, Pilot ${pilotName}. ${data.response}`);
-    } catch (err) {
-      console.error('OpenAI API error:', err);
-      setMessages((prev) => [
-        ...prev,
-        { sender: 'bot', text: `❗ I'm having trouble processing your request.` },
-        { sender: 'bot', text: 'Would you like to be connected to the available MSCO?' }
-      ]);
-      setAwaitingMSCOConfirm(true);
-      setIsTyping(false);
-    }
+    }, 35);
   };
 
   return (
@@ -122,22 +130,20 @@ export default function Chatbot() {
       <div className={styles.chatbotMessages}>
         {messages.map((msg, idx) =>
           msg.isImage ? (
-            <div key={idx} className={styles.botBubble}>
+            <div key={idx} className={`${styles.botBubble} ${styles.messageSpacing} ${styles.rightAlign}`}>
               <img src={msg.imageUrl} alt="QR Code" className={styles.qrImage} />
             </div>
           ) : (
             <div
               key={idx}
-              className={`${styles.messageBubble} ${
-                msg.sender === 'user' ? styles.userBubble : styles.botBubble
-              } ${msg.typing ? styles.typingBubble : ''}`}
+              className={`${styles.messageBubble} ${styles.messageSpacing} ${
+                msg.sender === 'user' ? styles.leftAlign : styles.rightAlign
+              }`}
             >
               {msg.text}
-              {msg.typing && <span className={styles.typingIndicator}>|</span>}
             </div>
           )
         )}
-        {isTyping && !messages.some(m => m.typing) && <div className={styles.botBubble}>...</div>}
         <div ref={messagesEndRef} />
       </div>
 
@@ -158,13 +164,14 @@ export default function Chatbot() {
           className={styles.chatbotTextInput}
           disabled={isTyping}
         />
-        <button onClick={handleSend} disabled={isTyping || !input.trim()}>
+        <button onClick={handleSend} disabled={isTyping}>
           {isAskingName ? 'SUBMIT' : 'COMMAND'}
         </button>
       </div>
     </>
   );
 }
+
 
 
 
