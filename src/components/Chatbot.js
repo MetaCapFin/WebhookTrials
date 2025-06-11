@@ -16,7 +16,7 @@ export default function Chatbot() {
   useEffect(() => {
     typeBotMessage('👋 Hello Pilot, welcome to your MS interface.', () => {
       setTimeout(() => {
-        typeBotMessage('What is your name, Pilot?', () => {
+        typeBotMessage('Please state Name or Callsign', () => {
           setIsAskingName(true);
         });
       }, 600);
@@ -37,7 +37,7 @@ export default function Chatbot() {
       setIsAskingName(false);
       setMessages((prev) => [
         ...prev,
-        { sender: 'bot', text: `Nice to meet you, ${trimmed}. Ready for commands when you are.` },
+        { sender: 'bot', text: `Acknowledged, ${trimmed}. Ready for commands inputs.` },
       ]);
       return;
     }
@@ -53,7 +53,7 @@ export default function Chatbot() {
       } else {
         setMessages((prev) => [
           ...prev,
-          { sender: 'bot', text: "Understood, Pilot. Let me know if you'd like to try again." },
+          { sender: 'bot', text: "Understood. Let me know if you'd like to try again." },
         ]);
       }
       setAwaitingMSCOConfirm(false);
