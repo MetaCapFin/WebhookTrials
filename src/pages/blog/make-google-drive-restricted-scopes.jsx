@@ -4,11 +4,13 @@ import styles from '../../styles/BlogPost.module.css';
 
 export default function MakeGoogleDriveRestrictedScopesPost() {
   const router = useRouter();
+
   return (
     <section className={styles.blogPost}>
       <h1>How to Use an LLM to Auto-Update Google Docs for Blog Publishing</h1>
       <p><em>2025-06-17</em></p>
-      <div><p>Large Language Models (LLMs) like ChatGPT can do more than answer questions—they can automate your entire blog content pipeline. When combined with tools like n8n and Google Docs, you can set up a system that writes, edits, and publishes blog posts with minimal human input.</p>
+      <div>
+        <p>Large Language Models (LLMs) like ChatGPT can do more than answer questions—they can automate your entire blog content pipeline. When combined with tools like n8n and Google Docs, you can set up a system that writes, edits, and publishes blog posts with minimal human input.</p>
 
 <p>## 🤖 Why Automate with an LLM?</p>
 
@@ -44,8 +46,15 @@ export default function MakeGoogleDriveRestrictedScopesPost() {
 
 <p>### TL;DR</p>
 
-<p>- Use OpenAI to generate post drafts - Save drafts in Google Docs - Auto-publish to your GitHub blog repo with n8n - Optional: Add AI steps for editing, summaries, SEO, etc.</p></div>
-      <button className={styles.backButton} onClick={() => router.push('/')} type="button">← Back to Home</button>
+<p>- Use OpenAI to generate post drafts - Save drafts in Google Docs - Auto-publish to your GitHub blog repo with n8n - Optional: Add AI steps for editing, summaries, SEO, etc.</p>
+      </div>
+      <button
+        className={styles.backButton}
+        onClick={() => router.push('/')}
+        type="button"
+      >
+        ← Back to Home
+      </button>
     </section>
   );
 }
